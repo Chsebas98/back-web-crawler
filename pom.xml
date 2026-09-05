@@ -51,6 +51,14 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<dependency>
+			<!-- HTML parsing for the Hacker News scraper. Chosen for its simple,
+			     CSS-selector-based DOM API, which keeps parsing code readable
+			     without pulling in a full browser/NLP dependency. -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.18.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
