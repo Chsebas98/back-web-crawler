@@ -51,6 +51,14 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<dependency>
+			<!-- HTML parsing for the Hacker News scraper. Chosen for its simple,
+			     CSS-selector-based DOM API, which keeps parsing code readable
+			     without pulling in a full browser/NLP dependency. -->
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.18.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
@@ -123,6 +131,13 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
+							<!-- Spring Boot's parent normally sets this by default, but redeclaring
+							     this execution here (to wire in Lombok's annotation processor)
+							     overrides that default rather than merging with it, so it has to be
+							     restored explicitly. Without it, reflection-based parameter-name
+							     lookup (e.g. @RequestParam String filter with no explicit name)
+							     fails at runtime with "parameter name information not available". -->
+							<parameters>true</parameters>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.projectlombok</groupId>
@@ -138,6 +153,7 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
+							<parameters>true</parameters>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.projectlombok</groupId>
